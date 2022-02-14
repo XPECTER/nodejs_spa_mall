@@ -1,6 +1,6 @@
 const express = require("express");
 const Goods = require("../schemas/goods")
-const Cart = require("../schemas/cart")
+const Carts = require("../schemas/cart")
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -23,7 +23,7 @@ router.get("/goods/cart", async (req, res) => {
   const goods = await Goods.find({ goodsId: goodsIds});
 
   res.json({
-      carts: carts.map((cart) => ({
+      cart: carts.map((cart) => ({
           quantity: cart.quantity,
           goods: goods.find((item) => item.goodsId === cart.goodsId),
       })),
@@ -33,10 +33,10 @@ router.get("/goods/cart", async (req, res) => {
 router.get("/goods/:goodsId", async (req, res) => {
   const { goodsId } = req.params;
 
-  const [detail] = await Goods.find({ goodsId: Number(goodsId) });
+  const [goods] = await Goods.find({ goodsId: Number(goodsId) });
 
   res.json({
-    detail,
+    goods,
   });
 });
 
@@ -56,9 +56,9 @@ router.post("/goods/:goodsId/cart", async (req, res) => {
 router.delete("/goods/:goodsId/cart", async (req, res) => {
   const { goodsId } = req.params;
 
-  const existsCarts = await Cart.find({ goodsId: Number(goodsId) });
+  const existsCarts = await Carts.find({ goodsId: Number(goodsId) });
   if (existsCarts.length) {
-    await Cart.deleteOne({ goodsId: Number(goodsId) });
+    await Carts.deleteOne({ goodsId: Number(goodsId) });
   }
 
   res.json({ success: true });
@@ -72,12 +72,12 @@ router.put("/goods/:goodsId/cart", async (req, res) => {
     return res.status(400).json({ success: false, errorMessage: "수량을 1 미만으로 입력하실 수 없습니다."});
   }
 
-  const existsCarts = await Cart.find({ goodsId: Number(goodsId) });
+  const existsCarts = await Carts.find({ goodsId: Number(goodsId) });
   if (!existsCarts.length) {
-    return res.status(400).json({ success: false, errorMessage: "해당 상품이 장바구니에 없습니다."});
+    await Carts.create({ goodsId: Number(goodsId), quantity });
+  } else {
+    await Carts.updateOne({ goodsId: Number(goodsId) }, { $set: { quantity } });
   }
-
-  await Cart.updateOne({ goodsId: Number(goodsId) }, { $set: { quantity } });
 
   res.json({ success: true });
 })
