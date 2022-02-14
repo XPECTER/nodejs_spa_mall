@@ -1,0 +1,98 @@
+- 회원 가입
+    - Request
+        - Method: POST
+        - URL: /users
+        - Body: { userId: string, password: string, userName: string }
+    - Response
+        - HTTP Status Code: 201
+        - Payload: { success: boolean, errorMessage: string }
+- 로그인
+    - Request
+        - Method: POST
+        - URL: /login
+    - Response
+        - HTTP Status Code: 201
+        - Payload: { success: boolean, errorMessage: string }
+- 회원 정보 수정
+    - Request
+        - Method: PUT
+        - URL: /users/:userId
+        - Body: { userId: string, password: string, userName: string }
+    - Response
+        - HTTP Status Code: 201
+        - Payload: { success: boolean, errorMessage: string }
+- 회원 탈퇴
+    - Request
+        - Method: DELETE
+        - URL: /users/:userId
+        - Body: { userId: string, password: string }
+    - Response
+        - HTTP Status Code: 200
+        - Payload: { success: boolean, errorMessage: string }
+
+- 게시글 작성
+    - Request
+        - Method: POST
+        - URL: /articles
+        - Body: { articleTitle: string, content: string, userName: string }
+    - Response
+        - HTTP Status Code: 201
+        - Payload: { success: boolean, errorMessage: string }
+- 게시글 목록 조회
+    - Request
+        - Method: GET
+        - URL: /articles
+    - Response
+        - HTTP Status Code: 200
+        - Payload: { articleId: number, articleTitle: string, userName: string }
+- 게시글 상세 조회
+    - Request
+        - Method: GET
+        - URL: /articles/:articleId
+        - Body: { articleId: number }
+    - Response
+        - HTTP Status Code: 200
+        - Payload: { articleTitle: string, content: string, userName: string }
+- 게시글 수정
+    - Request
+        - asdf
+        - asdf
+    - Response
+        - asdf
+        - asdf
+- 게시글 삭제
+    - Request
+        - asdf
+        - asdf
+    - Response
+        - asdf
+        - asdf
+
+- 댓글 목록 조회
+    - Request
+        - asdf
+        - asdf
+    - Response
+        - asdf
+        - asdf
+- 댓글 작성
+    - Request
+        - asdf
+        - asdf
+    - Response
+        - asdf
+        - asdf
+- 댓글 수정
+    - Request
+        - asdf
+        - asdf
+    - Response
+        - asdf
+        - asdf
+- 댓글 삭제
+    - Request
+        - asdf
+        - asdf
+    - Response
+        - asdf
+        - asdf
